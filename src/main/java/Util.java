@@ -1,11 +1,15 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 class Util {
+
+    private static final String YEAR = "2020";
 
     private Util() {}
 
@@ -26,19 +30,55 @@ class Util {
     }
 
     private static <T> List<T> readFile(Function<String, T> converter) {
-        final String className = getCallerClassName();
-        final String fileName = String.format("/%s.in", className.substring(3));
-        final BufferedReader in = new BufferedReader(new InputStreamReader(Util.class.getResourceAsStream(fileName)));
-        final List<T> input = new ArrayList<>();
+        final var className = getCallerClassName();
+        final var day = className.substring(3);
+        final var fileName = String.format("/%s.in", day);
+        final var filePath = filePath(fileName);
+        if (!Files.exists(Path.of(filePath))) {
+            var data = fetchData(day);
+            writeData(data, fileName);
+        }
+        try {
+            return readData(Files.newInputStream(Path.of(filePath))).stream()
+                    .map(converter)
+                    .collect(Collectors.toList());
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static List<String> readData(InputStream ins) {
+        final var in = new BufferedReader(new InputStreamReader(ins));
+        final var input = new ArrayList<String>();
         String row;
         try {
             while ((row = in.readLine()) != null) {
-                input.add(converter.apply(row));
+                input.add(row);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return input;
+    }
+
+    private static void writeData(String data, String fileName) {
+        String path = filePath(fileName);
+        try {
+            var out = new BufferedWriter(new FileWriter(path));
+            out.write(data);
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static String filePath(String fileName) {
+        return System.getProperty("user.dir") + File.separator
+                + "src" + File.separator
+                + "main" + File.separator
+                + "resources" + File.separator
+                + fileName;
     }
 
     private static String getCallerClassName() {
@@ -48,5 +88,17 @@ class Util {
             }
         }
         return "";
+    }
+
+    private static String fetchData(String day) {
+        try {
+            var url = new URL("https://adventofcode.com/" + YEAR + "/day/" + day + "/input");
+            var urlConnection = url.openConnection();
+            urlConnection.setRequestProperty("Cookie", "session=" + Files.readString(Path.of("cookie.txt")));
+            return Util.readData(urlConnection.getInputStream()).stream()
+                    .reduce(null, (a, b) -> a == null ? b : a + "\n" + b);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
