@@ -4,8 +4,8 @@ public class Day1 {
 
     public static void main(String[] args) {
         var num = new HashSet<>(Util.readInts());
-        System.out.println(part1(num));
-        System.out.println(part2(num));
+        Util.submitPart1(part1(num));
+        Util.submitPart2(part2(num));
     }
 
     private static int part1(HashSet<Integer> num) {

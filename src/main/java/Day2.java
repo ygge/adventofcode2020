@@ -4,11 +4,11 @@ public class Day2 {
 
     public static void main(String[] args) {
         var passwords = Util.readStrings();
-        part1(passwords);
-        part2(passwords);
+        Util.submitPart1(part1(passwords));
+        Util.submitPart2(part2(passwords));
     }
 
-    private static void part1(List<String> passwords) {
+    private static int part1(List<String> passwords) {
         int valid = 0;
         for (var p : passwords) {
             var parts = p.split(" ");
@@ -26,10 +26,10 @@ public class Day2 {
                 ++valid;
             }
         }
-        System.out.println(valid);
+        return valid;
     }
 
-    private static void part2(List<String> passwords) {
+    private static int part2(List<String> passwords) {
         int valid = 0;
         for (var p : passwords) {
             var parts = p.split(" ");
@@ -43,6 +43,6 @@ public class Day2 {
                 ++valid;
             }
         }
-        System.out.println(valid);
+        return valid;
     }
 }
