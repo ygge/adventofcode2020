@@ -37,12 +37,19 @@ class Util {
         submitPart1(Integer.toString(answer));
     }
 
+    static void submitPart1(long answer) {
+        submitPart2(Long.toString(answer));
+    }
+
     static void submitPart1(String answer) {
         submit(1, answer);
     }
 
     static void submitPart2(int answer) {
         submitPart2(Integer.toString(answer));
+    }
+    static void submitPart2(long answer) {
+        submitPart2(Long.toString(answer));
     }
 
     static void submitPart2(String answer) {
