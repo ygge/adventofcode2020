@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -54,6 +55,10 @@ class Util {
 
     static void submitPart2(String answer) {
         submit(2, answer);
+    }
+
+    static List<String> toStringList(String str) {
+        return Arrays.asList(str.split("\n"));
     }
 
     private static void submit(int part, String answer) {
