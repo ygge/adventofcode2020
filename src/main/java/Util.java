@@ -39,7 +39,7 @@ class Util {
     }
 
     static void submitPart1(long answer) {
-        submitPart2(Long.toString(answer));
+        submitPart1(Long.toString(answer));
     }
 
     static void submitPart1(String answer) {
