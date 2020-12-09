@@ -34,6 +34,10 @@ class Util {
         return readFile(Integer::parseInt);
     }
 
+    static List<Long> readLongs() {
+        return readFile(Long::parseLong);
+    }
+
     static void submitPart1(int answer) {
         submitPart1(Integer.toString(answer));
     }
