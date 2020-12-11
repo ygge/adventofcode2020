@@ -38,6 +38,31 @@ class Util {
         return readFile(Long::parseLong);
     }
 
+    static char[][] readBoard() {
+        var content = readFile(str -> readString().toCharArray());
+        char[][] board = new char[content.size()][];
+        for (int i = 0; i < content.size(); ++i) {
+            board[i] = content.get(i);
+        }
+        return board;
+    }
+
+    static boolean[][] readBoard(char trueChar, char falseChar) {
+        var content = readFile(str -> readString().toCharArray());
+        boolean[][] board = new boolean[content.size()][];
+        for (int i = 0; i < content.size(); ++i) {
+            board[i] = new boolean[content.get(i).length];
+            for (int j = 0; j < content.get(i)[j]; ++j) {
+                char c = content.get(i)[j];
+                if (c != trueChar && c != falseChar) {
+                    throw new RuntimeException(String.format("Char %c is neight true nor false", c));
+                }
+                board[i][j] = c == trueChar;
+            }
+        }
+        return board;
+    }
+
     static void submitPart1(int answer) {
         submitPart1(Integer.toString(answer));
     }
