@@ -1,3 +1,5 @@
+import util.Util;
+
 import java.util.HashSet;
 
 public class Day1 {

@@ -1,3 +1,5 @@
+package util;
+
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -11,14 +13,14 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class Util {
+public class Util {
 
     private static final String YEAR = "2020";
     private static final String COOKIE_FILE = "cookie.txt";
 
     private Util() {}
 
-    static String readString() {
+    public static String readString() {
         final List<String> strings = readStrings();
         if (strings.size() != 1) {
             throw new IllegalStateException(String.format("File does not contain exactly one row, got %d", strings.size()));
@@ -26,19 +28,19 @@ class Util {
         return strings.get(0);
     }
 
-    static List<String> readStrings() {
+    public static List<String> readStrings() {
         return readFile(Function.identity());
     }
 
-    static List<Integer> readInts() {
+    public static List<Integer> readInts() {
         return readFile(Integer::parseInt);
     }
 
-    static List<Long> readLongs() {
+    public static List<Long> readLongs() {
         return readFile(Long::parseLong);
     }
 
-    static char[][] readBoard() {
+    public static char[][] readBoard() {
         var content = readFile(str -> readString().toCharArray());
         char[][] board = new char[content.size()][];
         for (int i = 0; i < content.size(); ++i) {
@@ -47,7 +49,7 @@ class Util {
         return board;
     }
 
-    static boolean[][] readBoard(char trueChar, char falseChar) {
+    public static boolean[][] readBoard(char trueChar, char falseChar) {
         var content = readFile(str -> readString().toCharArray());
         boolean[][] board = new boolean[content.size()][];
         for (int i = 0; i < content.size(); ++i) {
@@ -63,30 +65,30 @@ class Util {
         return board;
     }
 
-    static void submitPart1(int answer) {
+    public static void submitPart1(int answer) {
         submitPart1(Integer.toString(answer));
     }
 
-    static void submitPart1(long answer) {
+    public static void submitPart1(long answer) {
         submitPart1(Long.toString(answer));
     }
 
-    static void submitPart1(String answer) {
+    public static void submitPart1(String answer) {
         submit(1, answer);
     }
 
-    static void submitPart2(int answer) {
+    public static void submitPart2(int answer) {
         submitPart2(Integer.toString(answer));
     }
-    static void submitPart2(long answer) {
+    public static void submitPart2(long answer) {
         submitPart2(Long.toString(answer));
     }
 
-    static void submitPart2(String answer) {
+    public static void submitPart2(String answer) {
         submit(2, answer);
     }
 
-    static List<String> toStringList(String str) {
+    public static List<String> toStringList(String str) {
         return Arrays.asList(str.split("\n"));
     }
 
@@ -183,7 +185,7 @@ class Util {
 
     private static String getCallerClassName() {
         for (StackTraceElement stackTraceElement : new RuntimeException().getStackTrace()) {
-            if (!stackTraceElement.getClassName().equals("Util")) {
+            if (!stackTraceElement.getClassName().equals("util.Util")) {
                 return stackTraceElement.getClassName();
             }
         }
