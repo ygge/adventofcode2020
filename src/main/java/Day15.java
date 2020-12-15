@@ -12,24 +12,14 @@ public class Day15 {
     }
 
     private static long part2(String input) {
-        Map<Long, Long> seen = new HashMap<>();
-        var split = input.split(",");
-        long latest = 0;
-        for (int i = 0; i < split.length; ++i) {
-            if (i > 0) {
-                seen.put(latest, (long) i);
-            }
-            latest = Long.parseLong(split[i]);
-        }
-        for (int j = split.length; j < 30000000; ++j) {
-            long next = seen.containsKey(latest) ? j - seen.get(latest) : 0;
-            seen.put(latest, (long) j);
-            latest = next;
-        }
-        return latest;
+        return solve(input, 30000000);
     }
 
     private static int part1(String input) {
+        return solve(input, 2020);
+    }
+
+    private static int solve(String input, int limit) {
         Map<Integer, Integer> seen = new HashMap<>();
         var split = input.split(",");
         int latest = 0;
@@ -39,7 +29,7 @@ public class Day15 {
             }
             latest = Integer.parseInt(split[i]);
         }
-        for (int j = split.length; j < 2020; ++j) {
+        for (int j = split.length; j < limit; ++j) {
             int next = seen.containsKey(latest) ? j - seen.get(latest) : 0;
             seen.put(latest, j);
             latest = next;
