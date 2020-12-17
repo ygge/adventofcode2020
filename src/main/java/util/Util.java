@@ -41,7 +41,7 @@ public class Util {
     }
 
     public static char[][] readBoard() {
-        var content = readFile(str -> readString().toCharArray());
+        var content = readFile(String::toCharArray);
         char[][] board = new char[content.size()][];
         for (int i = 0; i < content.size(); ++i) {
             board[i] = content.get(i);
@@ -50,11 +50,11 @@ public class Util {
     }
 
     public static boolean[][] readBoard(char trueChar, char falseChar) {
-        var content = readFile(str -> readString().toCharArray());
+        var content = readFile(String::toCharArray);
         boolean[][] board = new boolean[content.size()][];
         for (int i = 0; i < content.size(); ++i) {
             board[i] = new boolean[content.get(i).length];
-            for (int j = 0; j < content.get(i)[j]; ++j) {
+            for (int j = 0; j < content.get(i).length; ++j) {
                 char c = content.get(i)[j];
                 if (c != trueChar && c != falseChar) {
                     throw new RuntimeException(String.format("Char %c is neight true nor false", c));
