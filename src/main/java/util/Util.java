@@ -94,6 +94,16 @@ public class Util {
 
     private static void submit(int part, String answer) {
         System.out.printf("Submitting part %d: %s\n", part, answer);
+        System.out.println("Press y to proceed, anything else to skip");
+        try {
+            var in = new BufferedReader(new InputStreamReader(System.in));
+            var input = in.readLine();
+            if (!input.equalsIgnoreCase("y")) {
+                return;
+            }
+        } catch (IOException e) {
+            return;
+        }
         final String day = getDay();
         final var data = String.format("level=%d&answer=%s", part, URLEncoder.encode(answer, StandardCharsets.UTF_8));
         try {
